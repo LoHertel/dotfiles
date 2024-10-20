@@ -1,0 +1,39 @@
+[init]
+	defaultBranch = main
+[core]
+{{- if (or (eq .chezmoi.os "windows") (.chezmoi.kernel.osrelease | lower | contains "wsl")) }}
+	sshCommand = ssh.exe
+{{ else }}
+	sshCommand = ssh
+{{ end -}}
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	allowedSignersFile = ~/.ssh/allowed_signers
+{{- if eq .chezmoi.os "windows"}}
+	program = "~/AppData/Local/1Password/app/8/op-ssh-sign.exe"
+{{- else if (.chezmoi.kernel.osrelease | lower | contains "wsl") }}
+	program = "{{ env "USERPROFILE" }}/AppData/Local/1Password/app/8/op-ssh-sign.exe"
+{{- end }}
+[push]
+	autosetupRemote = true
+
+# Github
+[includeIf "hasconfig:remote.*.url:https://github.com/*/**"]
+	path = ~/.git.personal.github.gitconfig
+[includeIf "hasconfig:remote.*.url:git@github.com:*/**"]
+	path = ~/.git.personal.github.gitconfig
+
+{{ if .is_work_machine -}}
+# Azure Devops
+[includeIf "hasconfig:remote.*.url:https://*@dev.azure.com/**"]
+	path = ~/.git.cv.az-devops.gitconfig
+[includeIf "hasconfig:remote.*.url:git@ssh.dev.azure.com:v3/*/**"]
+	path = ~/.git.cv.az-devops.gitconfig
+
+# GitLab
+[includeIf "hasconfig:remote.*.url:https://git.cornelsen.de/**"]
+	path = ~/.git.cv.gitlab.gitconfig
+[includeIf "hasconfig:remote.*.url:git@git.cornelsen.de:*/**"]
+	path = ~/.git.cv.gitlab.gitconfig
+{{ end -}}

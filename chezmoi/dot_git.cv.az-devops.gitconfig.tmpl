@@ -1,0 +1,20 @@
+# This is Git's per-user configuration file.
+[user]
+	name = {{ .full_name }}
+	email = {{ onepasswordRead "op://Employee/Cornelsen AAD Admin/username" }}
+	signingkey = {{ onepasswordRead "op://Employee/Git SSH Key/public key" }}
+[credential "https://dev.azure.com"]
+{{- if eq .chezmoi.os "windows"}}
+	helper = "C:\Program Files\Git\mingw64\bin\git-credential-manager.exe"
+{{- else if .chezmoi.kernel.osrelease | lower | contains "wsl" }}
+	helper = "/mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe"
+{{- else if eq .chezmoi.os "darwin" }}
+	helper = osxkeychain
+{{- else }}
+	helper = cache
+{{- end }}
+	useHttpPath = true
+[commit]
+	gpgsign = true
+[tag]
+	gpgsign = true

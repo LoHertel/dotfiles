@@ -1,0 +1,2 @@
+# GPG config
+export GPG_TTY=$(tty)

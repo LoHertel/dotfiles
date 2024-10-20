@@ -1,0 +1,6 @@
+README.md
+{{ if not .is_work_machine -}}
+# only add on work machines
+.git.cv.az-devops.gitconfig
+.git.cv.gitlab.gitconfig
+{{- end }}

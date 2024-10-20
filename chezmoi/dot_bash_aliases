@@ -1,0 +1,4 @@
+# use 1Password CLI from Windows for passwords and SSH
+alias op='op.exe'
+alias ssh='ssh.exe'
+alias ssh-add='ssh-add.exe'

@@ -1,0 +1,9 @@
+# This is Git's per-user configuration file.
+[user]
+	name = {{ .full_name }}
+	email = {{ onepasswordRead "op://Employee/Cornelsen AAD/username" }}
+	signingkey = {{ onepasswordRead "op://Employee/Git SSH Key/public key" }}
+[commit]
+	gpgsign = true
+[tag]
+	gpgsign = true

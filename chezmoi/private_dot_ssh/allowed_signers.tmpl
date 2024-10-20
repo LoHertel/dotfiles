@@ -1,0 +1,5 @@
+{{ range (onepassword "~/.ssh/allowed_signers").fields -}}
+{{   if and (eq .label "notesPlain") (eq .purpose "NOTES") -}}
+{{     .value -}}
+{{   end -}}
+{{ end }}

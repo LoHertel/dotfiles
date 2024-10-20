@@ -1,0 +1,13 @@
+# This is Git's per-user configuration file.
+[user]
+	name = {{ onepasswordRead "op://Employee/GitHub/login" }}
+	email = {{ onepasswordRead "op://Employee/GitHub/email" }}
+	signingkey = {{ onepasswordRead "op://Employee/Git SSH Key/public key" }}
+[credential "https://github.com"]
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = !/usr/bin/gh auth git-credential
+[commit]
+	gpgsign = true
+[tag]
+	gpgsign = true

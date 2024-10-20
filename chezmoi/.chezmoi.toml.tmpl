@@ -1,0 +1,13 @@
+# see here for inspiration: https://github.com/twpayne/dotfiles/blob/master/home/.chezmoi.toml.tmpl
+
+{{- $full_name := promptStringOnce . "full_name" "What is your name?" -}}
+{{- $is_work_machine := promptBoolOnce . "is_work_machine" "Is this a work machine?" -}}
+
+[data]
+    full_name = {{ $full_name }}
+    is_work_machine = {{ $is_work_machine }}
+
+{{ if (or (eq .chezmoi.os "windows") (.chezmoi.kernel.osrelease | lower | contains "wsl")) -}}
+[onepassword]
+    command = "op.exe"
+{{- end }}
