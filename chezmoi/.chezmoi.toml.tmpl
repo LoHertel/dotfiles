@@ -8,6 +8,7 @@
     is_work_machine = {{ $is_work_machine }}
 
 {{ if (or (eq .chezmoi.os "windows") (.chezmoi.kernel.osrelease | lower | contains "wsl")) -}}
+# 1Password CLI executable on Windows and WSL
 [onepassword]
     command = "op.exe"
 {{- end }}

@@ -11,9 +11,13 @@
 [gpg "ssh"]
 	allowedSignersFile = ~/.ssh/allowed_signers
 {{- if eq .chezmoi.os "windows"}}
-	program = "~/AppData/Local/1Password/app/8/op-ssh-sign.exe"
+	program = "{{ joinPath .chezmoi.homeDir "/AppData/Local/1Password/app/8/op-ssh-sign.exe" }}"
 {{- else if (.chezmoi.kernel.osrelease | lower | contains "wsl") }}
 	program = "{{ env "USERPROFILE" }}/AppData/Local/1Password/app/8/op-ssh-sign.exe"
+{{- else if eq .chezmoi.os "macos" }}
+	program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+{{- else if eq .chezmoi.os "linux" }}
+	program = "/opt/1Password/op-ssh-sign"
 {{- end }}
 [push]
 	autosetupRemote = true
