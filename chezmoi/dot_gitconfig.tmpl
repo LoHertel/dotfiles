@@ -13,7 +13,8 @@
 {{- if eq .chezmoi.os "windows"}}
 	program = "{{ joinPath .chezmoi.homeDir "/AppData/Local/1Password/app/8/op-ssh-sign.exe" }}"
 {{- else if (.chezmoi.kernel.osrelease | lower | contains "wsl") }}
-	program = "{{ env "USERPROFILE" }}/AppData/Local/1Password/app/8/op-ssh-sign.exe"
+	{{- /* Expects env var USERPROFILE in WSL. If not present, run "setx WSLENV USERPROFILE/up" in cmd.exe */}}
+	program = "{{ env "USERPROFILE" }}/AppData/Local/Microsoft/WindowsApps/op-ssh-sign-wsl.exe"
 {{- else if eq .chezmoi.os "macos" }}
 	program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
 {{- else if eq .chezmoi.os "linux" }}
@@ -21,6 +22,13 @@
 {{- end }}
 [push]
 	autosetupRemote = true
+
+# Git LFS
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
 
 # Github
 [includeIf "hasconfig:remote.*.url:https://github.com/*/**"]

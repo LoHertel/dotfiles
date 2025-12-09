@@ -2,6 +2,7 @@
 abbr --add dc docker compose
 abbr --add dcd docker compose down
 abbr --add dcdr docker compose down --rmi local --volumes
+abbr --add dcu docker compose up
 abbr --add dcub docker compose up --build
 
 # images

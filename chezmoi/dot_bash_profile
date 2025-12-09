@@ -1,2 +1,2 @@
-# GPG config
-export GPG_TTY=$(tty)
+# load .bashrc when bash is used as login shell
+[[ -r ~/.bashrc ]] && . ~/.bashrc

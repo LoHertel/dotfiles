@@ -118,3 +118,6 @@ fi
 
 # activate direnv hooks
 eval "$(direnv hook bash)"
+
+# cargo
+. "$HOME/.cargo/env"

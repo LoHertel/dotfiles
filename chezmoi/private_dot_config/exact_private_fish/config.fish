@@ -18,7 +18,7 @@ if status is-interactive
     zoxide init --cmd y fish | source
 
     # activate direnv hooks
-    #direnv hook fish | source
+    direnv hook fish | source
 
     # pyenv
     #pyenv init - | source
@@ -32,4 +32,7 @@ if status is-interactive
 
     # kubectl code completion
     kubectl completion fish | source
+
+    # cargo
+    source "$HOME/.cargo/env.fish"
 end

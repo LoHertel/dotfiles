@@ -3,5 +3,5 @@ login {{ onepasswordRead "op://Employee/JFrog Python-Local Access Token/username
 password {{ onepasswordRead "op://Employee/JFrog Python-Local Access Token/password" }}
 
 machine {{ onepasswordRead "op://Employee/GitLab Access Token VS Code/host" }}
-login "{{ onepasswordRead "op://Employee/GitLab Access Token VS Code/username" }}"
+login {{ onepasswordRead "op://Employee/GitLab Access Token VS Code/username" }}
 password {{ onepasswordRead "op://Employee/GitLab Access Token VS Code/password" }}
