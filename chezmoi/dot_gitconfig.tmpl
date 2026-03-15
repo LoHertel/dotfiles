@@ -30,6 +30,11 @@
 	process = git-lfs filter-process
 	required = true
 
+[branch]
+	autoSetupMerge = always
+[worktree]
+	guessRemote = true
+
 # Github
 [includeIf "hasconfig:remote.*.url:https://github.com/*/**"]
 	path = ~/.git.personal.github.gitconfig

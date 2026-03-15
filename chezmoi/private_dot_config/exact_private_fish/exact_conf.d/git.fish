@@ -8,7 +8,7 @@ end
 
 # branch
 abbr --add gb git branch
-abbr --add gbv git branch -v
+abbr --add gbv git branch -vv
 
 # checkout
 abbr --add gco git checkout
@@ -18,7 +18,7 @@ abbr --add gcb git checkout -b
 abbr --add gc git clone
 
 # config
-abbr --add gcd git config --show-origin --get-all
+abbr --add gcd git config get --show-scope --show-origin --all
 
 # fetch
 abbr --add gf git fetch --all --prune
@@ -45,3 +45,4 @@ abbr --add gss git status -s
 # worktree
 abbr --add gwa git worktree add --guess-remote
 abbr --add gwl git worktree list
+abbr --add gwr git worktree remove

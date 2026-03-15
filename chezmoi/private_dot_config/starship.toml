@@ -1,26 +1,141 @@
+# Get editor completions based on the config schema
+'$schema' = 'https://starship.rs/config-schema.json'
+
+add_newline = false
+continuation_prompt = "[▸▹ ](dimmed white)"
+
+format = """${custom.git_repo}$directory$character"""
+
+right_format = """
+$cmd_duration\
+$all\
+$kubernetes\
+$git_status\
+${custom.git_branch_icon}\
+$git_branch\
+$git_commit\
+$git_state\
+$python\
+$nodejs\
+$direnv\
+$time"""
+
 [aws]
 disabled = true
 
+[character]
+success_symbol = '[❯](white dimmed)'
+error_symbol = '[❯](bold red)'
+
+[cmd_duration]
+format = " [󰦖 $duration]($style)"
+style = "yellow dimmed"
+show_notifications = true
+
 [directory]
-style = "blue"
-truncate_to_repo = false
-truncation_length = 8
+truncate_to_repo = true
+truncation_length = 0
+repo_root_format = '[$path]($style)[$read_only]($read_only_style) '
+repo_root_style = '' # variable must be set to activate repo_root_format
+style = 'white dimmed'
+read_only = ' '
+read_only_style = 'yellow'
+
+[direnv]
+format = ' [$symbol$loaded$allowed]($style)'
+symbol = '󰴌 '
+style = '240'
+allowed_msg = ''
+not_allowed_msg = ' '
+denied_msg = ' '
+loaded_msg = ' '
+unloaded_msg = ''
+disabled = false
+
+[dotnet]
+disabled = true
 
 [gcloud]
 disabled = true
 
+[custom.git_repo]
+when = "git rev-parse --is-inside-work-tree 2>/dev/null | grep -qx true"
+# require_repo = true
+command = "basename $(git config --get remote.origin.url) .git"
+format = '[$symbol($output)]($style)'
+symbol = '󰊢 '
+style = "238"
+
 [git_branch]
-style = "242"
+format = '[$symbol](240)[$branch([:$remote_name/$remote_branch]($style dimmed))]($style)'
+style = "238"
+symbol = ' '
+only_attached = true
+# ignore_branches = ["main", "master"]
+ignore_bare_repo = true
+
+[custom.git_branch_icon]
+when = "git rev-parse --is-inside-work-tree 2>/dev/null | grep -qx true"
+command = "echo ''"
+format = " []($style bold)"
+style = "240"
+disabled = true
+
+[git_commit]
+format = ' [ $hash$tag]($style)'
+style = "240"
+tag_disabled = false
+tag_symbol = ' 󰓼 '
+
+[git_status]
+format = ' [($ahead_behind )](yellow)[$conflicted$deleted$renamed$modified$typechanged$staged$untracked$stashed]($style)'
+style = "88"
+ahead = "[⇡](green)"
+conflicted = "󰦍 "
+deleted = "󱂥 "
+modified = " "
+renamed = "» "
+staged = "󰉉 "
+stashed = "[󰏢 ](240)"
+untracked = " "
 
 [hostname]
-ssh_only = false
-style = "bold green"
+ssh_only = true
 
 [kubernetes]
+format = ' [$symbol$context(:$namespace)]($style)'
+symbol = '󰠳 '
+style = '12 dimmed'
 disabled = false
 
+[nodejs]
+format = ' [$symbol($version)]($style)'
+version_format = "${major}.${minor}"
+style = "green dimmed"
+
+[package]
+disabled = true
+
 [python]
-disabled = false
+format = ' [${symbol} ${virtualenv}\[${version}\]](yellow dimmed)'
+version_format = "${major}.${minor}"
+symbol = ""
+# show only when venv is active
+detect_extensions = []
+detect_files = []
 
 [ruby]
 disabled = true
+
+[time]
+format = " [$time]($style)"
+time_format = "%R %a"
+utc_time_offset = "local"
+style = "240"
+disabled = false
+
+[username]
+style_root = 'yellow bold'
+format = ' [$user]($style)'
+disabled = false
+show_always = false

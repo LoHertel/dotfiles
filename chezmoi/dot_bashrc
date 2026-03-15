@@ -121,3 +121,9 @@ eval "$(direnv hook bash)"
 
 # cargo
 . "$HOME/.cargo/env"
+
+# Homebrew
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# Zoxide
+eval "$(zoxide init --cmd y bash)"

@@ -20,12 +20,9 @@ if status is-interactive
     # activate direnv hooks
     direnv hook fish | source
 
-    # pyenv
-    #pyenv init - | source
-
-    # sets kubeswitch custom function
+    # kubeswitch
     switcher init fish | source
-    # sets alias for kubeswitch
+    # alias for kubeswitch
     function s --wraps switcher
         kubeswitch $argv;
     end
@@ -35,4 +32,7 @@ if status is-interactive
 
     # cargo
     source "$HOME/.cargo/env.fish"
+
+    # starship
+    starship init fish | source
 end
